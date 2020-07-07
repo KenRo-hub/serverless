@@ -1,8 +1,9 @@
-const express = require('express')
-const app = express()
-const port = 3000
+const express = require('express');
+const app = express();
 
-app.get('/', (req, res) => res.send({mensaje : "que  corra el deploy"}))
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.get('*', (req, res) => {
+    console.log("Hola");
+    res.send({mensaje : "que  corra el deploy"});
+})
 
 module.exports = app;
