@@ -2,8 +2,9 @@ const express = require('express')
 const router = express.Router()
 
 router.get('/', (req,res) => {
-    res.send('hola soy orders')
+    res.send('hola soy Meals')
 })
+
 router.get('/:id', (req,res) => {
     res.send(req.params.id)
 })
