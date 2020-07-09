@@ -1,18 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const plates = require ('./routes/plates')
+const orders = require ('./routes/Orders')
 const app = express();
 
 
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true } )
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true } );
 
-const Users = mongoose.model('User', new mongoose.Schema({name : String})
-)
-
-Users.create({ name : 'Chanchito feliz'})
-
-app.get('*', (req, res) => {
-   Users.find()
-   .then(x => res.send(x))
-})
+app.use('/api/plates', plates);
+app.use('/api/orders', orders)
 
 module.exports = app;
