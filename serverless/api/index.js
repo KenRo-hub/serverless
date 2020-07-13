@@ -6,7 +6,7 @@ const orders = require ('./routes/Orders')
 const app = express();
 app.use(bodyParser.json())
 
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true } );
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false  } );
 
 app.use('/api/meals', meals);
 app.use('/api/orders', orders)
