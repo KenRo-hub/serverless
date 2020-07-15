@@ -30,7 +30,7 @@ if(!mealIdValue){
 }
 const order = {
     meal_id:mealIdValue,
-    user_id:'chanchito feliz',
+    user_id:'chanchito Triste',
 }
 fetch('https://serverless-weld-pi.vercel.app/api/orders', {
     method : 'POST',
