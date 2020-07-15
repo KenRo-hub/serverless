@@ -64,7 +64,8 @@ fetch('https://serverless-weld-pi.vercel.app/api/meals')
     .then(response => response.json())
     .then(ordersData =>{
         const orderList = document.getElementById('orders-list')
-        const listOrders = ordersData.map(ordersData => renderOrder) 
+        const listOrders = ordersData.map(orderData => renderOrder(orderData,data))
+        orderList.removeChild(orderList.firstElementChild) 
     })
 })
 }
