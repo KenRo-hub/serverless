@@ -27,3 +27,15 @@ ul{
     margin: 15px;
     margin-left: 38px;
 }
+#submit:disabled{
+    background-color: #ccc;
+}
+#submit:hover{
+    cursor: pointer;
+}
+#meals-list li{
+    cursor: pointer;
+}
+.selected{
+    background-color: #ddd;
+}
