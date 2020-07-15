@@ -19,6 +19,30 @@ const renderItem = (item) =>{
 }
 
 window.onload = () => {
+const orderForm = document.getElementById('order')
+orderForm.onsubmit = (e) => {
+e.preventDefault()
+const mealId = document.getElementById('meals-id')
+const mealIdValue = mealId.value
+if(!mealIdValue){
+    alert('Debe seleccionar un platillo')
+    return
+}
+const order = {
+    meal_id:mealIdValue,
+    user_id:'chanchito feliz',
+}
+fetch('https://serverless-weld-pi.vercel.app/api/orders', {
+    method : 'POST',
+    headers : {
+        'Content-Type' : 'application/json',
+    },
+    body : JSON.stringify(order)
+}).then(x => console.log(x))
+}
+
+
+
 fetch('https://serverless-weld-pi.vercel.app/api/meals')
 .then(response => response.json())
 .then(data => {
