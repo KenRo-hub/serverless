@@ -18,6 +18,13 @@ const renderItem = (item) =>{
     return element
 }
 
+const renderOrder = (order, meals) => {
+    const meal = meals.find(meal => meal._id === order.meal_id)
+    const element = stringToHtml(`<li data-id="${order._id}">${meal.name} - ${order.user_id}</li>`)
+
+    return element
+}
+
 window.onload = () => {
 const orderForm = document.getElementById('order')
 orderForm.onsubmit = (e) => {
@@ -53,5 +60,11 @@ fetch('https://serverless-weld-pi.vercel.app/api/meals')
     listItems.forEach(element => { mealsList.appendChild(element)
     });
     submit.removeAttribute('disabled');
+    fetch('https://serverless-weld-pi.vercel.app/api/orders')
+    .then(response => response.json())
+    .then(ordersData =>{
+        const orderList = document.getElementById('orders-list')
+        const listOrders = ordersData.map(ordersData => renderOrder) 
+    })
 })
 }
