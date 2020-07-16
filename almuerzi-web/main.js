@@ -85,5 +85,4 @@ const inicializaDatos = () => {
 window.onload = () => {
     inicializaFormulario()
     inicializaDatos()
-
 }
