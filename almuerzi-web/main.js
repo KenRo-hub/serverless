@@ -1,3 +1,5 @@
+let mealsState = []
+
 const stringToHtml = (s) =>{
     const parser= new DOMParser()
     const doc = parser.parseFromString(s,'text/html')
@@ -29,6 +31,8 @@ window.onload = () => {
 const orderForm = document.getElementById('order')
 orderForm.onsubmit = (e) => {
 e.preventDefault()
+const submit = document.getElementById('submit')
+submit.setAttribute('disabled', true)
 const mealId = document.getElementById('meals-id')
 const mealIdValue = mealId.value
 if(!mealIdValue){
@@ -45,7 +49,13 @@ fetch('https://serverless-weld-pi.vercel.app/api/orders', {
         'Content-Type' : 'application/json',
     },
     body : JSON.stringify(order)
-}).then(x => console.log(x))
+}).then(x => x.json())
+  .then(respuesta => {
+      const renderedOrder = renderOrder(respuesta,mealsState)
+      const ordersList = document.getElementById('orders-list')
+      ordersList.appendChild(renderedOrder)
+      submit.removeAttribute('disabled');
+  })
 }
 
 
@@ -53,6 +63,7 @@ fetch('https://serverless-weld-pi.vercel.app/api/orders', {
 fetch('https://serverless-weld-pi.vercel.app/api/meals')
 .then(response => response.json())
 .then(data => {
+    mealsState = data
     const mealsList = document.getElementById('meals-list');
     const submit = document.getElementById('submit');
     const listItems = data.map(renderItem)
