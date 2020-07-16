@@ -27,40 +27,40 @@ const renderOrder = (order, meals) => {
     return element
 }
 
-window.onload = () => {
-const orderForm = document.getElementById('order')
-orderForm.onsubmit = (e) => {
-e.preventDefault()
-const submit = document.getElementById('submit')
-submit.setAttribute('disabled', true)
-const mealId = document.getElementById('meals-id')
-const mealIdValue = mealId.value
-if(!mealIdValue){
-    alert('Debe seleccionar un platillo')
-    return
-}
-const order = {
-    meal_id:mealIdValue,
-    user_id:'chanchito Triste',
-}
-fetch('https://serverless-weld-pi.vercel.app/api/orders', {
-    method : 'POST',
-    headers : {
-        'Content-Type' : 'application/json',
-    },
-    body : JSON.stringify(order)
-}).then(x => x.json())
-  .then(respuesta => {
-      const renderedOrder = renderOrder(respuesta,mealsState)
-      const ordersList = document.getElementById('orders-list')
-      ordersList.appendChild(renderedOrder)
-      submit.removeAttribute('disabled');
-  })
+const inicializaFormulario = () => {
+    const orderForm = document.getElementById('order')
+    orderForm.onsubmit = (e) => {
+    e.preventDefault()
+    const submit = document.getElementById('submit')
+    submit.setAttribute('disabled', true)
+    const mealId = document.getElementById('meals-id')
+    const mealIdValue = mealId.value
+    if(!mealIdValue){
+        alert('Debe seleccionar un platillo')
+        return
+    }
+    const order = {
+        meal_id:mealIdValue,
+        user_id:'chanchito Triste',
+    }
+    fetch('https://serverless-weld-pi.vercel.app/api/orders', {
+        method : 'POST',
+        headers : {
+            'Content-Type' : 'application/json',
+        },
+        body : JSON.stringify(order)
+    }).then(x => x.json())
+      .then(respuesta => {
+          const renderedOrder = renderOrder(respuesta,mealsState)
+          const ordersList = document.getElementById('orders-list')
+          ordersList.appendChild(renderedOrder)
+          submit.removeAttribute('disabled');
+      })
+    }
 }
 
-
-
-fetch('https://serverless-weld-pi.vercel.app/api/meals')
+const inicializaDatos = () => {
+    fetch('https://serverless-weld-pi.vercel.app/api/meals')
 .then(response => response.json())
 .then(data => {
     mealsState = data
@@ -80,4 +80,10 @@ fetch('https://serverless-weld-pi.vercel.app/api/meals')
         listOrders.forEach(element => orderList.appendChild(element))
     })
 })
+}
+
+window.onload = () => {
+    inicializaFormulario()
+    inicializaDatos()
+
 }
